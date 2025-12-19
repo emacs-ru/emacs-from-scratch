@@ -490,6 +490,12 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (defalias 'list-buffers 'ibuffer "Замена стандартной функции на ibuffer."))
 
 
+;; 📦 ICOMPLETE
+;; Встроенное автодополнение в минибуфере
+(use-package icomplete
+  :config (icomplete-vertical-mode t))
+
+
 ;; 📦 MINIBUFFER
 ;; Встроенный пакет для управления поведением минибуфера.
 (use-package minibuffer

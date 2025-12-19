@@ -417,26 +417,17 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 ;; Использовать пакет только в том случае, когда дело происходит в
 ;; Linux и Hunspell, Aspell и Nuspell доступны.
 (when (string-equal system-type "gnu/linux")
-  ;; Перебираем анализатор. Выбран будет первый из доступных.
-  (let ((text-spell-program (cond ((file-executable-p "/usr/bin/hunspell") "hunspell")
-                                  ((file-executable-p "/usr/bin/aspell") "aspell")
-                                  ((file-executable-p "/usr/bin/nuspell") "nuspell")
-                                  ;; Ничего не установлено
-                                  (t nil))))
-    ;; Нужно использовать ispell-mode только в том случае, когда есть
-    ;; чем проверять орфографию.
-    (if text-spell-program
-        ;; then
-        (progn
-          (message (format "Для проверки орфографии используется %s" text-spell-program))
-          (use-package flyspell
-            :custom
-            (ispell-program-name text-spell-program)
-            :hook
-            ((text-mode . flyspell-mode)
-             (emacs-lisp-mode . flyspell-prog-mode))))
-      ;; else
-      (message "Не найдено программ для проверки орфографии."))))
+  (use-package flyspell
+    :custom
+    ;; Выбираем желаемую утилиту для проверки орфографии
+    (ispell-program-name (cond ((file-executable-p "/usr/bin/hunspell") "hunspell")
+                               ((file-executable-p "/usr/bin/aspell") "aspell")
+                               ((file-executable-p "/usr/bin/nuspell") "nuspell")
+                               ;; Ничего не установлено
+                               (t nil)))
+    :hook
+    ((text-mode . flyspell-mode)
+     (emacs-lisp-mode . flyspell-prog-mode))))
 
 
 ;; 📦 FRAME

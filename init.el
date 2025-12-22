@@ -698,18 +698,16 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 
 
 ;; 📦 WINDOW
-;;
 ;; Переключение между буферами как между вкладками в браузере:
-;;
-;; Ctrl + TAB         — предыдущий буфер
-;; Ctrl + Shift + Tab — следующий буфер
+;; Ctrl + TAB         — следующий буфер
+;; Ctrl + Shift + Tab — предыдущий буфер
 (use-package window
   :custom
   (window-resize-pixelwise t "Делить окна по пикселям, а не по символам.")
   :bind
   (:map global-map
-        ("C-S-<iso-lefttab>" . next-buffer)
-        ("C-<tab>" . previous-buffer)))
+        ("C-S-<iso-lefttab>" . previous-buffer)
+        ("C-<tab>" . next-buffer)))
 
 
 ;; 📦 XML

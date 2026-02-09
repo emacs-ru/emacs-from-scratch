@@ -594,6 +594,10 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (kill-emacs . savehist-save)
   :config
   (add-to-list 'delete-frame-functions 'savehist-save)
+  (add-to-list 'savehist-additional-variables 'compile-history)
+  (add-to-list 'savehist-additional-variables 'regexp-search-ring)
+  (add-to-list 'savehist-additional-variables 'search-ring)
+  (add-to-list 'savehist-additional-variables 'shell-command-history)
   (savehist-mode t))
 
 

@@ -124,7 +124,7 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
  default-input-method "russian-computer" ;; Метод ввода по умолчанию
  default-transient-input-method "russian-computer" ;; Временный метод ввода
  delete-by-moving-to-trash t ;; Удалять файлы в Корзину
- gc-cons-threshold (* 2 gc-cons-threshold) ;; Увеличить размер памяти для сборщика мусора
+ gc-cons-threshold (* 2 gc-cons-threshold) ;; Увеличить в 2 раза размер памяти для сборщика мусора
  highlight-nonselected-windows nil ;; Не подсвечивать неактивные окна
  inhibit-compacting-font-caches t ;; Не сжимать шрифты в памяти
  inhibit-startup-screen t ;; Не показывать приветственный экран
@@ -517,6 +517,26 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
     :config
     (pixel-scroll-mode t)
     (pixel-scroll-precision-mode)))
+
+
+;; 📦 PROJECT
+;; Управление проектами на самом базовом уровне.
+;; [C-x p p] — переключение.
+;; [C-x p D] — Dired.
+;; [C-x p d] — выбрать каталог.
+;; [C-x p f] — выбрать файл.
+;; [C-x p k] — закрыть открытые файлы проекта.
+;; [C-x p C-b] — показать список буферов проекта.
+;; [C-x p b] — переключение буферов в рамках проекта.
+;; [C-x p c] — компиляция проекта.
+;; [C-x p s] — Shell в текущем проекте.
+;; [C-x p e] — EShell в текущем проекте.
+(use-package project
+  :pin "gnu"
+  :ensure t
+  :init
+  (unless (alist-get 'project package-alist)
+    (package-upgrade 'project)))
 
 
 ;; 📦 RECENTF-MODE

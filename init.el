@@ -652,7 +652,7 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (suggest-key-bindings t "Показывать подсказку клавиатурной комбинации для команды")
   :config
   (keymap-global-unset "<insert>" t) ;; Режим перезаписи не нужен
-  (disable-command 'overwrite-mode)
+  (put 'overwrite-mode 'disabled t)  ;; Предотвращаем случайное включение.
   :bind
   (:map global-map
         ("C-z" . undo)) ;; Отмена на Ctrl+Z
@@ -751,4 +751,3 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 
 (provide 'init.el)
 ;;; init.el ends here
-(put 'overwrite-mode 'disabled t)

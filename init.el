@@ -17,9 +17,9 @@
 ;; замусоривать `init.el', будем хранить их в файле `custom.el`.
 (require 'custom)
 (setopt custom-file
-        (expand-file-name
-         (convert-standard-filename "custom.el")
-         user-emacs-directory))
+  (expand-file-name
+    (convert-standard-filename "custom.el")
+    user-emacs-directory))
 
 
 ;; Загрузим настройки, сделанные через `customize', сразу, чтобы они
@@ -40,17 +40,17 @@
 Настройки задаются в формате X Logical Font Description Conventions,
 XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (set-frame-font (format "-*-%s-normal-normal-normal-*-%d-*-*-*-m-0-iso10646-1"
-                          font-family
-                          init-el-font-height)
-                  nil ;; Не сохранять установленный ранее размер
-                  t   ;; Применить ко всем фреймам
-                  t)  ;; Игнорировать настройки, сделанные через `customize'
+                    font-family
+                    init-el-font-height)
+    nil ;; Не сохранять установленный ранее размер
+    t   ;; Применить ко всем фреймам
+    t)  ;; Игнорировать настройки, сделанные через `customize'
   (set-face-attribute
-   'default ;; Font Face по умолчанию
-   nil      ;; Применить ко всем фреймам
-   ;; Атрибуты шрифта
-   :height (* init-el-font-height 10)
-   :family font-family))
+    'default ;; Font Face по умолчанию
+    nil      ;; Применить ко всем фреймам
+    ;; Атрибуты шрифта
+    :height (* init-el-font-height 10)
+    :family font-family))
 
 
 ;; Настройки, специфичные для графического режима
@@ -63,15 +63,16 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
       ;; Выбираем шрифт по умолчанию.
       ;; Впишите на первое место своё любимое семейство шрифтов.
       ;; Только убедитесь, что оно установлено в вашей системе.
-      (let ((preferred-font-family (cond ((member "Lilex" font-families) "Lilex")
-                                         ((member "SauceCodePro NFP" font-families) "SauceCodePro NFP")
-                                         ((member "FiraCode Nerd Font Mono" font-families) "FiraCode Nerd Font Mono")
-                                         ((member "Fira Code" font-families) "Fira Code")
-                                         ((member "DejaVu Sans Mono Nerd" font-families) "DejaVu Sans Mono Nerd")
-                                         ((member "DejaVu Sans Mono" font-families) "DejaVu Sans Mono")
-                                         ((member "Source Code Pro" font-families) "Source Code Pro")
-                                         ((member "Consolas" font-families) "Consolas")
-                                         ('t nil))))
+      (let ((preferred-font-family (cond
+                                     ((member "Lilex" font-families) "Lilex")
+                                     ((member "SauceCodePro NFP" font-families) "SauceCodePro NFP")
+                                     ((member "FiraCode Nerd Font Mono" font-families) "FiraCode Nerd Font Mono")
+                                     ((member "Fira Code" font-families) "Fira Code")
+                                     ((member "DejaVu Sans Mono Nerd" font-families) "DejaVu Sans Mono Nerd")
+                                     ((member "DejaVu Sans Mono" font-families) "DejaVu Sans Mono")
+                                     ((member "Source Code Pro" font-families) "Source Code Pro")
+                                     ((member "Consolas" font-families) "Consolas")
+                                     ('t nil))))
         ;; Шрифт по умолчанию доступен в системе?
         (when preferred-font-family
           (progn
@@ -101,50 +102,50 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (message "Используется ОС на базе GNU/Linux")
   (defvar init-el-emacs-source-path "Путь к каталогу с исходным кодом Emacs")
   (setq init-el-emacs-source-path
-        (format "/usr/share/emacs/%d.%d/src/"
-                emacs-major-version
-                emacs-minor-version))
+    (format "/usr/share/emacs/%d.%d/src/"
+      emacs-major-version
+      emacs-minor-version))
   (if (file-exists-p init-el-emacs-source-path)
-      ;; Каталог существует
-      (if (directory-empty-p init-el-emacs-source-path)
-          ;; Каталог пуст
-          (message (format "Каталог %s пуст." init-el-emacs-source-path))
-        ;; Каталог не пуст
-        (progn
-          (setopt source-directory init-el-emacs-source-path)
-          (message (format "Исходный код обнаружен в каталоге %s" init-el-emacs-source-path))))
+    ;; Каталог существует
+    (if (directory-empty-p init-el-emacs-source-path)
+      ;; Каталог пуст
+      (message (format "Каталог %s пуст." init-el-emacs-source-path))
+      ;; Каталог не пуст
+      (progn
+        (setopt source-directory init-el-emacs-source-path)
+        (message (format "Исходный код обнаружен в каталоге %s" init-el-emacs-source-path))))
     ;; Каталог не существует
     (message (format "Каталог %s не существует." init-el-emacs-source-path))))
 
 (setopt
- completion-ignore-case t ;; Игнорировать регистр при автодополнении
- create-lockfiles nil ;; Не создавать lock-файлы
- cursor-in-non-selected-windows nil ;; Отключить курсор в неактивных окнах
- cursor-type 'bar ;; Курсор в виде вертикальной черты
- default-input-method "russian-computer" ;; Метод ввода по умолчанию
- default-transient-input-method "russian-computer" ;; Временный метод ввода
- delete-by-moving-to-trash t ;; Удалять файлы в Корзину
- gc-cons-threshold (* 2 gc-cons-threshold) ;; Увеличить в 2 раза размер памяти для сборщика мусора
- highlight-nonselected-windows nil ;; Не подсвечивать неактивные окна
- inhibit-compacting-font-caches t ;; Не сжимать шрифты в памяти
- inhibit-startup-screen t ;; Не показывать приветственный экран
- initial-scratch-message nil ;; Пустой буфер *scratch*
- load-prefer-newer t ;; Если есть файл elc, но el новее, загрузить el-файл.
- major-mode 'text-mode ;; Текстовый режим для новых буферов по умолчанию.
- read-answer-short t ;; Быстрый ввод ответов на вопросы (не аналог yes-or-no-p
- read-file-name-completion-ignore-case t ;; Игнорировать регистр при вводе имён файлов
- read-process-output-max (* 1024 1024) ;; Увеличим чанк чтения для LSP: по умолчанию 65535
- redisplay-skip-fontification-on-input t ;; Не обновлять буфер, если происходит ввод
- ring-bell-function 'ignore ;; Отключить звуковое сопровождение событий
- show-trailing-whitespace t ;; Подсветка висячих пробелов
- standard-indent 4 ;; Отступ по умолчанию — 4 пробела
- tab-always-indent 'complete ;; Если можно — выровнять текст, иначе — автодополнение.
- use-dialog-box nil ;; Диалоговые окна ОС не нужны
- use-short-answers t ;; Краткие ответы вместо длинных
- user-full-name "TODO: вписать своё имя" ;; Имя пользователя
- user-mail-address "TODO: вписать свой email" ;; Адрес электронной почты
- vc-follow-symlinks t ;; Переходить по ссылкам без лишних вопросов
- visible-bell t) ;; Мигать буфером при переходе в него
+  completion-ignore-case t ;; Игнорировать регистр при автодополнении
+  create-lockfiles nil ;; Не создавать lock-файлы
+  cursor-in-non-selected-windows nil ;; Отключить курсор в неактивных окнах
+  cursor-type 'bar ;; Курсор в виде вертикальной черты
+  default-input-method "russian-computer" ;; Метод ввода по умолчанию
+  default-transient-input-method "russian-computer" ;; Временный метод ввода
+  delete-by-moving-to-trash t ;; Удалять файлы в Корзину
+  gc-cons-threshold (* 2 gc-cons-threshold) ;; Увеличить в 2 раза размер памяти для сборщика мусора
+  highlight-nonselected-windows nil ;; Не подсвечивать неактивные окна
+  inhibit-compacting-font-caches t ;; Не сжимать шрифты в памяти
+  inhibit-startup-screen t ;; Не показывать приветственный экран
+  initial-scratch-message nil ;; Пустой буфер *scratch*
+  load-prefer-newer t ;; Если есть файл elc, но el новее, загрузить el-файл.
+  major-mode 'text-mode ;; Текстовый режим для новых буферов по умолчанию.
+  read-answer-short t ;; Быстрый ввод ответов на вопросы (не аналог yes-or-no-p
+  read-file-name-completion-ignore-case t ;; Игнорировать регистр при вводе имён файлов
+  read-process-output-max (* 1024 1024) ;; Увеличим чанк чтения для LSP: по умолчанию 65535
+  redisplay-skip-fontification-on-input t ;; Не обновлять буфер, если происходит ввод
+  ring-bell-function 'ignore ;; Отключить звуковое сопровождение событий
+  show-trailing-whitespace t ;; Подсветка висячих пробелов
+  standard-indent 4 ;; Отступ по умолчанию — 4 пробела
+  tab-always-indent 'complete ;; Если можно — выровнять текст, иначе — автодополнение.
+  use-dialog-box nil ;; Диалоговые окна ОС не нужны
+  use-short-answers t ;; Краткие ответы вместо длинных
+  user-full-name "TODO: вписать своё имя" ;; Имя пользователя
+  user-mail-address "TODO: вписать свой email" ;; Адрес электронной почты
+  vc-follow-symlinks t ;; Переходить по ссылкам без лишних вопросов
+  visible-bell t) ;; Мигать буфером при переходе в него
 
 
 (defun init-kill-scratch ()
@@ -196,10 +197,10 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 (package-initialize)
 
 (setopt package-archive-priorities
-        '(("gnu" . 40)
-          ("nongnu" . 30)
-          ("melpa-stable" . 20)
-          ("melpa" . 10)))
+  '(("gnu" . 40)
+     ("nongnu" . 30)
+     ("melpa-stable" . 20)
+     ("melpa" . 10)))
 
 (defun init-el-check-archive-contents ()
   "Проверим состояние кеша пакетов. Если его нет, то обновим его."
@@ -267,8 +268,8 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 (use-package conf-mode
   :mode
   ("\\.env\\'"
-   "\\.flake8\\'"
-   "\\.pylintrc\\'"))
+    "\\.flake8\\'"
+    "\\.pylintrc\\'"))
 
 
 ;; 📦 CUSTOM
@@ -333,9 +334,9 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 (use-package display-line-numbers
   :hook
   ((c-mode
-    conf-mode
-    emacs-lisp-mode
-    html-mode) . display-line-numbers-mode))
+     conf-mode
+     emacs-lisp-mode
+     html-mode) . display-line-numbers-mode))
 
 
 ;; 📦 ELECTRIC-INDENT MODE
@@ -361,13 +362,13 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (add-to-list 'electric-pair-pairs '(?“ . ”?))   ;; “”)
   :hook
   ((conf-mode
-    emacs-lisp-data-mode
-    emacs-lisp-mode
-    lisp-data-mode
-    nxml-mode
-    org-mode
-    ruby-mode
-    tex-mode) . electric-pair-local-mode))
+     emacs-lisp-data-mode
+     emacs-lisp-mode
+     lisp-data-mode
+     nxml-mode
+     org-mode
+     ruby-mode
+     tex-mode) . electric-pair-local-mode))
 
 
 ;; 📦 FACE-REMAP
@@ -403,12 +404,12 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 ;; Встроенный пакет для работы со статическими анализаторами.
 (use-package flymake
   :bind (:map emacs-lisp-mode-map
-              ;; Перейти к следующей ошибке
-              ("M-n" . flymake-goto-next-error)
-              ;; Перейти к предыдущей ошибке
-              ("M-p" . flymake-goto-prev-error))
+          ;; Перейти к следующей ошибке
+          ("M-n" . flymake-goto-next-error)
+          ;; Перейти к предыдущей ошибке
+          ("M-p" . flymake-goto-prev-error))
   :hook ((emacs-mode
-          wisent-grammar-mode) . flymake-mode))
+           wisent-grammar-mode) . flymake-mode))
 
 
 ;; 📦 FLYSPELL-MODE
@@ -421,13 +422,13 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
     :custom
     ;; Выбираем желаемую утилиту для проверки орфографии
     (ispell-program-name (cond ((file-executable-p "/usr/bin/hunspell") "hunspell")
-                               ((file-executable-p "/usr/bin/aspell") "aspell")
-                               ((file-executable-p "/usr/bin/nuspell") "nuspell")
-                               ;; Ничего не установлено
-                               (t nil)))
+                           ((file-executable-p "/usr/bin/aspell") "aspell")
+                           ((file-executable-p "/usr/bin/nuspell") "nuspell")
+                           ;; Ничего не установлено
+                           (t nil)))
     :hook
     ((text-mode . flyspell-mode)
-     (emacs-lisp-mode . flyspell-prog-mode))))
+      (emacs-lisp-mode . flyspell-prog-mode))))
 
 
 ;; 📦 FRAME
@@ -440,10 +441,10 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (frame-resize-pixelwise t "Размер фреймов изменять по пикселям а не по символам")
   :bind
   (:map global-map
-        ("C-x O" . previous-window-any-frame) ;; Перейти в предыдущее окно
-        ;; Перейти в следующее окно
-        ("C-x o" . next-window-any-frame)
-        ("M-o" . next-window-any-frame)))
+    ("C-x O" . previous-window-any-frame) ;; Перейти в предыдущее окно
+    ;; Перейти в следующее окно
+    ("C-x o" . next-window-any-frame)
+    ("M-o" . next-window-any-frame)))
 
 
 ;; 📦 GOTO-ADDRESS-MODE
@@ -452,8 +453,8 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 (use-package goto-addr
   :hook
   ((emacs-lisp-mode
-    html-mode
-    rst-mode) . goto-address-mode))
+     html-mode
+     rst-mode) . goto-address-mode))
 
 
 ;; 📦 IBUFFER
@@ -462,21 +463,21 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 (use-package ibuffer
   :custom
   (ibuffer-formats '((mark      ;; Отметка
-                      modified  ;; Буфер изменён?
-                      read-only ;; Только чтение?
-                      locked    ;; Заблокирован?
-                      " "
-                      (name 35 45 :left :elide) ;; Имя буфера: от 30 до 40 знаков
-                      " "
-                      (mode 8 -1 :left)         ;; Активный режим: от 8 знаков по умолчанию, при необходимости увеличить
-                      " "
-                      filename-and-process)     ;; Имя файла и процесс
-                     ;; Сокращённый формат
-                     (mark      ;; Отметка?
-                      " "
-                      (name 35 -1) ;; Имя буфера: 32 знака, при необходимости — расширить на сколько нужно
-                      " "
-                      filename)))  ;; Имя файла
+                       modified  ;; Буфер изменён?
+                       read-only ;; Только чтение?
+                       locked    ;; Заблокирован?
+                       " "
+                       (name 35 45 :left :elide) ;; Имя буфера: от 30 до 40 знаков
+                       " "
+                       (mode 8 -1 :left)         ;; Активный режим: от 8 знаков по умолчанию, при необходимости увеличить
+                       " "
+                       filename-and-process)     ;; Имя файла и процесс
+                      ;; Сокращённый формат
+                      (mark      ;; Отметка?
+                        " "
+                        (name 35 -1) ;; Имя буфера: 32 знака, при необходимости — расширить на сколько нужно
+                        " "
+                        filename)))  ;; Имя файла
   (ibuffer-default-sorting-mode 'filename/process "Сортировать файлы по имени / процессу")
   (ibuffer-display-summary nil "Не показывать строку ИТОГО")
   (ibuffer-eliding-string "…" "Если строка не уместилась, показать этот символ")
@@ -569,11 +570,11 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (rst-indent-width 3)
   ;; На сайте docutils написано, что правильно вот так:
   (rst-preferred-adornments '((?# over-and-under 1)
-                              (?* over-and-under 1)
-                              (?= simple 0)
-                              (?- simple 0)
-                              (?^ simple 0)
-                              (?\" simple 0)))
+                               (?* over-and-under 1)
+                               (?= simple 0)
+                               (?- simple 0)
+                               (?^ simple 0)
+                               (?\" simple 0)))
   (rst-toc-indent 3))
 
 
@@ -582,7 +583,7 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 (use-package ruby-ts-mode
   :mode
   ("\\.rb\\'"
-   "Vagrantfile\\'"))
+    "Vagrantfile\\'"))
 
 
 ;; 📦 RUST-MODE
@@ -655,12 +656,23 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (put 'overwrite-mode 'disabled t)  ;; Предотвращаем случайное включение.
   :bind
   (:map global-map
-        ("C-z" . undo)) ;; Отмена на Ctrl+Z
+    ("C-z" . undo)) ;; Отмена на Ctrl+Z
   :hook
   (compilation-mode . visual-line-mode)
   (markdown-mode . visual-line-mode)
   (messages-buffer-mode . visual-line-mode)
   (text-mode . visual-line-mode))
+
+
+;; 📦 TAB-BAR-MODE
+;; Встроенный пакет для управления вкладками
+(use-package tab-bar
+  :bind
+  (:map global-map
+    ("C-<tab>" . tab-bar-switch-to-next-tab)
+    ("C-S-<tab>" . tab-bar-switch-to-prev-tab))
+  :config
+  (tab-bar-mode t))
 
 
 ;; 📦 UNIQUIFY
@@ -678,16 +690,16 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
 (use-package whitespace
   :custom
   (whitespace-display-mappings ;; Отображение нечитаемых символов
-   '((space-mark   ?\    [?\xB7]     [?.])        ;; Пробел
-     (space-mark   ?\xA0 [?\xA4]     [?_])        ;; Неразрывный пробел
-     (newline-mark ?\n   [?¶ ?\n]    [?$ ?\n])    ;; Конец строки
-     (tab-mark     ?\t   [?\xBB ?\t] [?\\ ?\t]))) ;; TAB
+    '((space-mark   ?\    [?\xB7]     [?.])        ;; Пробел
+       (space-mark   ?\xA0 [?\xA4]     [?_])        ;; Неразрывный пробел
+       (newline-mark ?\n   [?¶ ?\n]    [?$ ?\n])    ;; Конец строки
+       (tab-mark     ?\t   [?\xBB ?\t] [?\\ ?\t]))) ;; TAB
   (whitespace-line-column 1000 "По умолчанию подсвечиваются длинные строки. Не надо этого делать.")
   :hook
   ((emacs-lisp-mode
-    sh-mode
-    sql-mode
-    tex-mode) . whitespace-mode))
+     sh-mode
+     sql-mode
+     tex-mode) . whitespace-mode))
 
 
 ;; 📦 WHICH-KEY MODE
@@ -730,8 +742,8 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (window-resize-pixelwise t "Делить окна по пикселям, а не по символам.")
   :bind
   (:map global-map
-        ("C-S-<iso-lefttab>" . previous-buffer)
-        ("C-<tab>" . next-buffer)))
+    ("C-S-<iso-lefttab>" . previous-buffer)
+    ("C-<tab>" . next-buffer)))
 
 
 ;; 📦 XML
@@ -745,7 +757,7 @@ XLFD: https://www.x.org/releases/X11R7.7/doc/xorg-docs/xlfd/xlfd.html"
   (nxml-slash-auto-complete-flag t "Закрывать теги по вводу /")
   :mode
   ("\\.pom\\'"
-   "\\.xml\\'"))
+    "\\.xml\\'"))
 
 (load-theme 'deeper-blue)
 
